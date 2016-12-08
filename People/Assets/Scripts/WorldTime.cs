@@ -9,6 +9,7 @@ public class WorldTime : MonoBehaviour
     public float sunUpTime;
     public int dayCount;
     private bool dayTime;
+    private int pPressed;
 	// Use this for initialization
 	void Start ()
     {
@@ -16,12 +17,13 @@ public class WorldTime : MonoBehaviour
         sunUpTime = 0.0f;
         sunDownTime = 0.0f;
         dayTime = true;
+        pPressed = 0;
 	}
 
     // Update is called once per frame
     void Update()
     {
-
+        // -- DAY/ NIGHT CYCLE
         if (dirLight.intensity >= 0.8f)
             dayTime = true;
 
@@ -33,7 +35,7 @@ public class WorldTime : MonoBehaviour
         if (dayTime)
         {
             sunUpTime += Time.deltaTime;
-            if (sunUpTime > 20.0f)
+            if (sunUpTime > 740.0f)
             {
                 dirLight.intensity -= 0.001f;
 
@@ -54,7 +56,7 @@ public class WorldTime : MonoBehaviour
         {
             // if not daytime, sun is down for this amount of time
             sunDownTime += Time.deltaTime;
-            if (sunDownTime > 40.0f)
+            if (sunDownTime > 50.0f)
             {
                 dirLight.intensity += 0.001f;
 
@@ -68,6 +70,29 @@ public class WorldTime : MonoBehaviour
                
             }
         }
+// ---- END DAY/NIGHT CYCLE
+        
+
+        
+// --PAUSE CODE   make a UI element for this.
+        if (Input.GetKeyDown(KeyCode.P))
+            pPressed++;
+
+
+        if (pPressed == 1)
+        {
+            Time.timeScale = 0;
+            Debug.Log("Pause");
+        }
+        else if (pPressed == 2)
+        {
+            Time.timeScale = 1;
+            Debug.Log("Playing");
+            pPressed = 0;            
+        }
+        
+
+        
          
 	}
 }

@@ -4,18 +4,23 @@ using System.Collections;
 public class Resource : MonoBehaviour
 {
     private bool isColliding;
-
+    public GameObject resource;
 	// Use this for initialization
 	void Start ()
     {
         isColliding = false;
-	}
+        for (int i = 0; i < 2; i++)
+            spawnResource(i);
+
+    }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        // move this to collision code, on collision with player or AI
-        if(isColliding)
+
+     
+        // Scaling down on collision
+        if (isColliding)
         {
             Vector3 scaleX = new Vector3(-1, 0, 0);
             Vector3 scaleY = new Vector3(0, -1, 0);
@@ -37,5 +42,12 @@ public class Resource : MonoBehaviour
     {
         if (col.gameObject.tag == "Player")
             isColliding = false;
+    }
+
+    void spawnResource(int amount)
+    {
+
+        Vector3 resPos = new Vector3(Random.insideUnitSphere.x, 0.9f, Random.insideUnitSphere.z);
+        Instantiate(resource, resPos, resource.transform.rotation);
     }
 }

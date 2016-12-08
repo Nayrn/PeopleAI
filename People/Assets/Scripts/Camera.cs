@@ -25,9 +25,7 @@ public class Camera : MonoBehaviour
 
         transform.Translate(x, y, 0);
 
-
-        // clamping camera pos
-
+        // find a way to properly clamp camera bounds
 
                  
     }
