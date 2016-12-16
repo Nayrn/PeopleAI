@@ -18,11 +18,9 @@ public class World : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log(resourceTotal); 
         if(resourceTotal < resourceCap)
             spawnResource();
-
-
+        // get rid of destroying and random respawning
     }
 
     void spawnResource()
@@ -33,7 +31,6 @@ public class World : MonoBehaviour
         Vector3 resPos = new Vector3(randX, 0.9f, randZ);
         Debug.Log(resPos);
         Instantiate(resource, resPos, resource.transform.rotation);
-        resourceTotal++;
-        
+        resourceTotal = resourceTotal + 1;       
     }
 }

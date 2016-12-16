@@ -18,9 +18,12 @@ public class Needs : MonoBehaviour
     private float m_fTotalTime;
 
     // dirty flag method
-    private bool touchedFood;
+    public bool touchedFood;
     private bool touchedWater;
     private bool isSleeping;
+
+    // hacky fix. plz work
+    private float foodTime;
 
 	void Start ()
     {
@@ -31,6 +34,8 @@ public class Needs : MonoBehaviour
         touchedFood = false;   // need to change naming soon
         touchedWater = false;
         isSleeping = false;
+
+        foodTime = 0.0f;
     }
 	
 	void Update ()
@@ -39,18 +44,30 @@ public class Needs : MonoBehaviour
         hungerBar.value = m_fHunger;
         thirstBar.value = m_fThirst;
         restBar.value = m_fRest;
-        //--
+   
+        //--NEEDS 
 
         if (touchedFood)
-            m_fHunger += Time.deltaTime; // bug here, once the object destroys, bool never gets set to false
+        {
+            m_fHunger += Time.deltaTime;
+
+            // hacky fix that I didn't want to do.
+            foodTime += Time.deltaTime;
+            if(foodTime >= 3.0f)
+            {
+                touchedFood = false;
+                foodTime = 0.0f;
+            }
+        }
+
 
         if (touchedWater)
             m_fThirst += Time.deltaTime;
 
         if (isSleeping)
             m_fRest += Time.deltaTime;
+        //--END NEEDS
 
-        Debug.Log(touchedFood);
 
 	    // decide in here how quickly the player should perish
 
@@ -58,7 +75,7 @@ public class Needs : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.tag == "Food")
+        if (col.gameObject.tag == "Food" && col.gameObject.activeSelf == true)
             touchedFood = true;
 
         if (col.gameObject.tag == "Water")
@@ -67,19 +84,7 @@ public class Needs : MonoBehaviour
         if (col.gameObject.tag == "Rest")
             isSleeping = true;
 
+
     }
 
-   void OnCollisionExit(Collision col)
-    {
-        if (col.gameObject.tag == "Food")
-            touchedFood = false;
-
-
-        if (col.gameObject.tag == "Water")
-            touchedWater = false;
-
-
-        if (col.gameObject.tag == "Rest")
-            isSleeping = false;
-    }
 }

@@ -10,7 +10,6 @@ public class Resource : MonoBehaviour
     {
         isColliding = false;
 
-
     }
 	
 	// Update is called once per frame
@@ -25,13 +24,13 @@ public class Resource : MonoBehaviour
             Vector3 scaleY = new Vector3(0, -1, 0);
             this.gameObject.transform.localScale += scaleX * Time.deltaTime / 2;
             this.gameObject.transform.localScale += scaleY * Time.deltaTime / 2;
-            if (this.gameObject.transform.localScale.x < 0.3f)
+            if (this.gameObject.transform.localScale.x < 0.4f)
             {
-                this.gameObject.SetActive(false);
-                world.resourceTotal--;
+                Destroy(gameObject);
+                world.resourceTotal = world.resourceTotal - 1;
             }
         }
-   
+
 
     }
 

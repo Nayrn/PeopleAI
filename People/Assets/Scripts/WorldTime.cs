@@ -44,11 +44,8 @@ public class WorldTime : MonoBehaviour
                     dirLight.intensity = 0.0f;
                     sunUpTime = 0.0f;
                     dayTime = false;
-                    
-
                 }
             }
-
         } 
 
 
@@ -66,8 +63,7 @@ public class WorldTime : MonoBehaviour
                     sunDownTime = 0.0f;
                     dayTime = true;
                     dayCount++;
-                }
-               
+                }              
             }
         }
 // ---- END DAY/NIGHT CYCLE
